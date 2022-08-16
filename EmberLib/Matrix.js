@@ -406,18 +406,22 @@ class Matrix extends TreeNode
         if (targetID < 0) {
             throw new Errors.InvalidMatrixSignal(targetID, "target");
         }
-        for(let i = 0; i < sources.length; i++) {
-            if (sources[i] < 0) {
-                throw new Errors.InvalidMatrixSignal(sources[i], `Source at index ${i}`);
+        if (sources) {
+            for(let i = 0; i < sources.length; i++) {
+                if (sources[i] < 0) {
+                    throw new Errors.InvalidMatrixSignal(sources[i], `Source at index ${i}`);
+                }
             }
         }
         if (matrixNode.contents.mode === MatrixMode.linear) {
             if (targetID >= matrixNode.contents.targetCount) {
                 throw new Errors.InvalidMatrixSignal(targetID, `Target higher than max value ${matrixNode.contents.targetCount}`);
             }
-            for(let i = 0; i < sources.length; i++) {
-                if (sources[i] >= matrixNode.contents.sourceCount) {
-                    throw new Errors.InvalidMatrixSignal(sources[i],`Source at index ${i} higher than max ${matrixNode.contents.sourceCount}`);
+            if (sources) {
+                for(let i = 0; i < sources.length; i++) {
+                    if (sources[i] >= matrixNode.contents.sourceCount) {
+                        throw new Errors.InvalidMatrixSignal(sources[i],`Source at index ${i} higher than max ${matrixNode.contents.sourceCount}`);
+                    }
                 }
             }
         }
