@@ -1,6 +1,7 @@
 const yargs = require('yargs');
 const { EmberServer, Decoder } = require('./index');
 const { readFileSync } = require('fs');
+const winston = require('winston');
 
 const argv = yargs.options({
     host: {
@@ -43,7 +44,9 @@ const main = async () => {
     server.on('error', (e) => {
         console.log(e);
     });
-    server._debug = true;
+    if (argv.debug) {
+        winston.level = 'debug';
+    }
     console.log(Date.now(), 'starting server');
     if (argv.debug) {
         server._debug = true;
