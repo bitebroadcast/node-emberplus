@@ -415,7 +415,7 @@ class TreeServer extends EventEmitter{
                 const src = origin == null ? "local" : `${origin.socket.remoteAddress}:${origin.socket.remotePort}`;
                 this.emit("value-change", element);
                 this.emit("event", ServerEvents.SETVALUE(element.contents.identifier,element.getPath(),src));
-                this.emit("change", element.contents.identifier, value);
+                this.emit("change", element.getPath(), value);
             }
             return resolve();
         });
